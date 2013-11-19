@@ -7,12 +7,30 @@
 //
 
 #import "bastionViewController.h"
+#import "Communicator.h"
 
 @interface bastionViewController ()
-
+@property (nonatomic, strong) Communicator *com;
 @end
 
 @implementation bastionViewController
+
+@synthesize webView = _webView;
+@synthesize urlInput = _urlInput;
+@synthesize com = _com;
+
+- (Communicator *)com
+{
+    if (!_com) _com = [[Communicator alloc] init];
+    return _com;
+}
+
+- (IBAction)goToSite
+{
+    NSLog(@"Go button hit");
+    NSURLRequest *request = [self.com sendWebRequest:_urlInput.text];
+    [_webView loadRequest:request];
+}
 
 - (void)viewDidLoad
 {

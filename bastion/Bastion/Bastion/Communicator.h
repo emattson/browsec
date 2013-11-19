@@ -13,5 +13,6 @@
 -(NSObject *) getWebsite;
 -(NSObject *) getActionFramework;
 -(void) sendAction:(NSObject *) userAction;
+-(NSURLRequest *) sendWebRequest: (NSString *) address;
 
 @end

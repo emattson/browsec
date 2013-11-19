@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface bastionViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *urlInput;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 
 @end
