@@ -15,9 +15,13 @@
 @implementation pictureviewerViewController
 
 @synthesize myWebView = _myWebView;
+@synthesize urlInput = _urlInput;
+
+
 
 - (IBAction)loadImage {
-    NSString *fullURL = @"http://elisd.files.wordpress.com/2013/10/wiki_sec.png";
+    NSLog(@"loadImage selected, url is %@", _urlInput.text);
+    NSString *fullURL = @"http://10.0.2.15:8000/Desktop/google.png";
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     

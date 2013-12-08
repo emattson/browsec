@@ -8,7 +8,7 @@ from urlparse import parse_qs
 from seleniumserver import *
 
 #constants
-PORT = 8000
+PORT = 8080
 
 class Handler(BaseHTTPRequestHandler):
 

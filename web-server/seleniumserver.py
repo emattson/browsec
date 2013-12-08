@@ -1,8 +1,11 @@
 #selenium server class 
 from selenium import webdriver
+from pyvirtualdisplay import Display
 
 class Selenium_Instance:
 	def __init__(self):
+		self.display = Display(visible=0, size=(1024, 768))
+		self.display.start()
 		self.driver = webdriver.Firefox()
 		return
 
@@ -21,5 +24,7 @@ class Selenium_Instance:
 	def shutdown(self):
 		if self.driver:
 			self.driver.close()
+		if self.display:
+			self.display.stop()
 		return
 

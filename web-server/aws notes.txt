@@ -1,0 +1,4 @@
+aws notes:
+
+scp -i my-key-pair.pem SampleFile.txt ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com:~
+ssh -i my-key-pair.pem ubuntu@something

@@ -11,5 +11,6 @@
 @interface pictureviewerViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIWebView *myWebView;
+@property (weak, nonatomic) IBOutlet UITextField *urlInput;
 
 @end

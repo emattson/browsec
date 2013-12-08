@@ -14,7 +14,9 @@
     NSLog(@"made it this far");
     NSLog(@"Address requested is: %@", address);
     
-    NSString *fullURL = @"http://www.google.com";
+    NSString *fullURL = @"http://54.201.101.85:8080/";
+    fullURL = [fullURL stringByAppendingString:address];
+    NSLog(@"fullUrl is %@", fullURL);
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
     
