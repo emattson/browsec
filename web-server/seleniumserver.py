@@ -18,7 +18,7 @@ class Selenium_Instance:
 	def take_screenshot(self):
 		if self.driver is None:
 			self.driver = webdriver.Firefox()
-		self.driver.get_screenshot_as_file("screenshot.png")
+		self.driver.get_screenshot_as_file("static/screenshot.png")
 		return
 
 	def shutdown(self):
