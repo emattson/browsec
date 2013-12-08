@@ -11,7 +11,7 @@ app = Flask(__name__)
 def index():
 	return 'Welcome to Bastion'
 
-@app.route('/get/<url>')
+@app.route('/get_sspng/<url>')
 def get_request(url):
 	app.logger.debug("user requested %s", url)
 	serve = Selenium_Instance()
@@ -22,7 +22,7 @@ def get_request(url):
 	#serve screenshot
 	#clean up
 	serve.shutdown()
-	return render_template("bastion.html")
+	return render_template("screenshot-page.html")
 
 
 
