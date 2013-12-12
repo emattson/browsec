@@ -1,0 +1,13 @@
+<!doctype html>
+<head>
+<title>{{title}}</title>
+</head>
+<body>
+<div class="main">
+{% for item in content %}
+	<div style="position: absolute; top: {{item['y']}}px; left: {{item['x']}}px; height:{{item['height']}}px; width:{{item['width']}}px;">
+		<{{item['tag']}} src="{{item['src']}}" href="{{item['href']}}" name="{{item['name']}}" id="{{item['id']}}" class="{{item['class']}}">{{item['text']}} </{{item['tag']}}>
+	</div>
+{% endfor %}
+</div>
+</body> 
