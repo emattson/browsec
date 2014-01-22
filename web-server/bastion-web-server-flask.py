@@ -32,6 +32,18 @@ def get_request(url):
 	serve.shutdown()
 	return render_template("screenshot-page.html")
 
+@app.route('/src/<url>')
+def source_request(url):
+	decoded_url = base64.urlsafe_b64decode(str(url))
+	app.logger.debug("user requested pagesource %s", decoded_url)
+	serve = Selenium_Instance(app)
+	#load
+	serve.get_page(decoded_url)
+	src = serve.get_page_source()
+	app.logger.debug(src)
+	serve.shutdown()
+	return render_template("raw.html", src=src)
+
 @app.route('/get_div/<url>')
 def div_request(url):
 	decoded_url = base64.urlsafe_b64decode(str(url))
