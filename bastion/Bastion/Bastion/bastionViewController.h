@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface bastionViewController : UIViewController
+@interface bastionViewController : UIViewController <UIWebViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *urlInput;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 

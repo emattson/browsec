@@ -8,9 +8,11 @@
 
 #import "bastionViewController.h"
 #import "Communicator.h"
+#import "UserAction.h"
 
 @interface bastionViewController ()
 @property (nonatomic, strong) Communicator *com;
+@property (nonatomic, strong) UserAction *uact;
 @end
 
 @implementation bastionViewController
@@ -18,6 +20,7 @@
 @synthesize webView = _webView;
 @synthesize urlInput = _urlInput;
 @synthesize com = _com;
+@synthesize uact = _uact;
 
 - (Communicator *)com
 {
@@ -25,11 +28,36 @@
     return _com;
 }
 
+- (UserAction *) uact
+{
+    if (!_uact) _uact = [[UserAction alloc] init];
+    return _uact;
+}
+
 - (IBAction)goToSite
 {
     NSLog(@"Go button hit");
     NSURLRequest *request = [self.com sendWebRequest:_urlInput.text];
     [_webView loadRequest:request];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    NSString *errorString = [error localizedDescription];
+    [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error (%d)", error.code] message:errorString delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    
 }
 
 - (void)viewDidLoad
