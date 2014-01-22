@@ -7,15 +7,21 @@
 //
 
 #import "Communicator.h"
+#import "NSData+Base64.h"
 
 @implementation Communicator
+
+#define base @"http://localhost:5000/get_sspng/"
+//@"http://54.201.101.85:8080/"
 
 -(NSURLRequest *) sendWebRequest: (NSString *) address {
     NSLog(@"made it this far");
     NSLog(@"Address requested is: %@", address);
-    
-    NSString *fullURL = @"http://54.201.101.85:8080/";
-    fullURL = [fullURL stringByAppendingString:address];
+    NSData *data = [address dataUsingEncoding:NSASCIIStringEncoding];
+    NSString *encodedURL = [data base64EncodedString];
+    NSLog(@"encoded string is: %@", encodedURL);
+    NSString *fullURL = base;
+    fullURL = [fullURL stringByAppendingString:encodedURL];
     NSLog(@"fullUrl is %@", fullURL);
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
