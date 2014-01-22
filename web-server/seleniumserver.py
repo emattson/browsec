@@ -7,20 +7,20 @@ class Selenium_Instance:
 	def __init__(self, app):
 		self.display = Display(visible=0, size=(1024, 768))
 		self.display.start()
-		self.driver = webdriver.Firefox()
+		self.driver = webdriver.PhantomJS()
 		self.app = app
 		self.app_location = "/get_div/"
 		return
 
 	def get_page(self, url):
 		if self.driver is None:
-			self.driver = webdriver.Firefox()
+			self.driver = webdriver.PhantomJS()
 		self.driver.get(url)
 		return
 
 	def get_elements_by_xpath(self, path):
 		if self.driver is None:
-			self.driver = webdriver.Firefox()
+			self.driver = webdriver.PhantomJS()
 		elements = self.driver.find_elements_by_xpath(path)
 		parsed = []
 		for element in elements:
@@ -52,13 +52,18 @@ class Selenium_Instance:
 		content = content + self.get_elements_by_xpath("//input")
 		content = content + self.get_elements_by_xpath("//img")
 		content = content + self.get_elements_by_xpath("//button")
+		content = content + self.get_elements_by_xpath("//li")
 		return content
 
 	def take_screenshot(self):
 		if self.driver is None:
-			self.driver = webdriver.Firefox()
+			self.driver = webdriver.PhantomJS()
 		self.driver.get_screenshot_as_file("static/screenshot.png")
 		return
+	def get_page_source(self):
+		source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;");
+		self.app.logger.debug("IMPORTANT %s", source)
+		return source
 
 	def shutdown(self):
 		if self.driver:
