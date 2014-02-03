@@ -1,3 +1,9 @@
 <!doctype html>
+<head>
+	<title>Phantomsite</title>
+	{% for sheet in sheets %}
+		<link rel="stylesheet" href="{{sheet}}">
+	{% endfor %}
+</head>
 <!-- made by selenium -->
 {% block page scoped %}{% endblock %}

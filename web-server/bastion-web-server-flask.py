@@ -41,8 +41,9 @@ def source_request(url):
 	serve.get_page(decoded_url)
 	src = serve.get_page_source()
 	app.logger.debug(src)
+	sheets = serve.get_css_sheets()
 	serve.shutdown()
-	return render_template("raw.html", src=src)
+	return render_template("raw.html", src=src, sheets=sheets)
 
 @app.route('/get_div/<url>')
 def div_request(url):

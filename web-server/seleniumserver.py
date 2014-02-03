@@ -65,6 +65,17 @@ class Selenium_Instance:
 		self.app.logger.debug("IMPORTANT %s", source)
 		return source
 
+	def get_css_sheets(self):
+		css = self.driver.find_elements_by_xpath("//link[@rel='stylesheet']")
+		style_links = []
+		for c in css:
+			l = c.get_attribute("href")
+			if not(l.split('/')[0] == "http:" or l.split('/')[0] == "https:"):
+				l = "http://" + self.driver.execute_script("return window.document.domain") + l
+			style_links.append(l)
+		self.app.logger.debug("Style sheet urls: %s", style_links)
+		return style_links
+
 	def shutdown(self):
 		if self.driver:
 			self.driver.close()
