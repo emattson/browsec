@@ -76,21 +76,27 @@ class Selenium_Instance:
 
 
 	def get_page_source(self):
-		source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;")
+		# source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;")
+		source = self.driver.page_source
 		# self.app.logger.debug("IMPORTANT %s", source)
 		soup = BeautifulSoup(source)
-		# remove any remaining scripts
-		for script in soup("script"):
+		body = soup.body.extract()
+		# first remove any remaining scripts
+		for script in body("script"):
 			script.decompose()
 		#handle links
-		for link in soup("a"):
+		for link in body("a"):
 			if link.has_attr('href'):
 				proc_href = self.fix_href(link['href'])
 				link['href'] = base64.urlsafe_b64encode(proc_href)
 		#handle images
 
+		#handle style elements
+		for style in soup("style"):
+			body.insert(0, style)
+			
 		#handle videos? NOTE: not done yet
-		return soup
+		return body
 
 	def get_css_sheets(self):
 		self.app.logger.debug("getting css links now")
