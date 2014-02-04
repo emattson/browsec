@@ -90,11 +90,15 @@ class Selenium_Instance:
 				proc_href = self.fix_href(link['href'])
 				link['href'] = base64.urlsafe_b64encode(proc_href)
 		#handle images
-
+		for image in body("img"):
+			src = image['src']
+			if not(src.split('/')[0] == "http:" or src.split('/')[0] == "https:" or src[:2] == '//'):
+				#relational image
+				image['src'] = "http://" + self.driver.execute_script("return window.document.domain") + src
 		#handle style elements
 		for style in soup("style"):
 			body.insert(0, style)
-			
+
 		#handle videos? NOTE: not done yet
 		return body
 
