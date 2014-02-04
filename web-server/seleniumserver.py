@@ -1,7 +1,9 @@
 #selenium server class 
 from selenium import webdriver
 from pyvirtualdisplay import Display
+from bs4 import BeautifulSoup
 import base64
+
 
 class Selenium_Instance:
 	def __init__(self, app):
@@ -60,12 +62,38 @@ class Selenium_Instance:
 			self.driver = webdriver.PhantomJS()
 		self.driver.get_screenshot_as_file("static/screenshot.png")
 		return
+
+	def fix_href(self, link):
+		#relative link?
+		if not(link.split('/')[0] == "http:" or link.split('/')[0] == "https:" or link[:2] == '//'):
+			link = self.driver.current_url + link
+		if link[:2] == '//':
+			link = "http:" + link
+		#parse it!
+		self.app.logger.debug("\thref: %s", link)
+		return link
+
+
+
 	def get_page_source(self):
-		source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;");
-		self.app.logger.debug("IMPORTANT %s", source)
-		return source
+		source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;")
+		# self.app.logger.debug("IMPORTANT %s", source)
+		soup = BeautifulSoup(source)
+		# remove any remaining scripts
+		for script in soup("script"):
+			script.decompose()
+		#handle links
+		for link in soup("a"):
+			if link.has_attr('href'):
+				proc_href = self.fix_href(link['href'])
+				link['href'] = base64.urlsafe_b64encode(proc_href)
+		#handle images
+
+		#handle videos? NOTE: not done yet
+		return soup
 
 	def get_css_sheets(self):
+		self.app.logger.debug("getting css links now")
 		css = self.driver.find_elements_by_xpath("//link[@rel='stylesheet']")
 		style_links = []
 		for c in css:
