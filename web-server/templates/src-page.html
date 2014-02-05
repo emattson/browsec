@@ -1,6 +1,7 @@
 <!doctype html>
 <head>
 	<title>Phantomsite</title>
+	<script src="{{url_for('static', filename='jquery-2.1.0.min.js')}}"></script>
 	{% for sheet in sheets %}
 		<link rel="stylesheet" href="{{sheet}}">
 	{% endfor %}
