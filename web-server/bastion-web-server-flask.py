@@ -3,6 +3,7 @@ from flask import Flask
 from flask import render_template
 
 import base64
+import socket
 
 from seleniumserver import *
 
@@ -63,4 +64,4 @@ def add_header(response):
 
 if __name__ == '__main__':
 	app.debug = True #True allows for arbitrary code execution!
-	app.run()
+	app.run(port=8888)
