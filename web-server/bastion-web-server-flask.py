@@ -64,4 +64,4 @@ def add_header(response):
 
 if __name__ == '__main__':
 	app.debug = True #True allows for arbitrary code execution!
-	app.run(port=8888)
+	app.run(port=8887)
