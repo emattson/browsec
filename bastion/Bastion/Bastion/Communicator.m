@@ -11,7 +11,7 @@
 
 @implementation Communicator
 
-#define base @"http://localhost:5000/get_sspng/"
+#define base @"http://nimbus.seas.gwu.edu:8888/src/"
 //@"http://54.201.101.85:8080/"
 
 -(NSURLRequest *) sendWebRequest: (NSString *) address {
