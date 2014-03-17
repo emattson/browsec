@@ -73,11 +73,14 @@ class Selenium_Instance:
 		self.app.logger.debug("\thref: %s", link)
 		return link
 
-
-
 	def get_page_source(self):
 		# source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;")
 		source = self.driver.page_source
+
+		##note: thread this out!!!! ##
+		#take_screenshot() # take screenshot for later use
+	
+
 		# self.app.logger.debug("IMPORTANT %s", source)
 		soup = BeautifulSoup(source)
 		body = soup.body.extract()
@@ -101,6 +104,14 @@ class Selenium_Instance:
 
 		#handle videos? NOTE: not done yet
 		return body
+
+	def pg_src_image(image, self):
+		#get image location
+		x,y = self.driver.execute_script("...")
+		#get dimensions
+		width, height = self.driver.execute_script("...")
+		#cutout with dimensions from screenshot
+		return 
 
 	def get_css_sheets(self):
 		self.app.logger.debug("getting css links now")
