@@ -9,3 +9,31 @@
 </head>
 <!-- made by selenium -->
 {% block page scoped %}{% endblock %}
+
+<!-- debug info -->
+<div id="debug">
+</div>
+<!-- injected scripts -->
+<script>
+	$("button").click(function(){
+		alert("clicked a button");
+	});
+
+	$("form").submit(function(event){
+		
+		// alert(event.target.method + ", " + event.target.action + ", " + event.target.name);
+		event.preventDefault(); //prevent submission instead we need to do our own actions
+		var formMethod = event.target.method;
+		var formName = event.target.name;
+		var formAction = event.target.action;
+
+		//extract form data
+		var data = $(this).serialize();
+
+		$("#debug").html("<p> form name: " + formName + "</p>" +
+			"<p> form method: " + formMethod + "</p>" + 
+			"<p> form action: " + formAction + "</p>" + 
+			"<p> data: " + data + "</data>");
+		
+	});
+</script>
