@@ -14,6 +14,20 @@ class Selenium_Instance:
 		self.app_location = "/get_div/"
 		return
 
+	def populate_form(self, data):
+		self.app.logger.debug(data['bast_name'])
+		form = self.driver.find_element_by_name(data['bast_name']);
+		for key in data.keys():
+			self.app.logger.debug(key)
+			if key != "bast_name" and data[key] != "":
+				self.app.logger.debug("form: " + form.get_attribute("name") + "\n  key: " + key)
+				element = form.find_element_by_name(key)
+
+				if element.is_displayed():
+					element.send_keys(data[key])
+		form.submit()
+		return
+
 	def get_page(self, url):
 		if self.driver is None:
 			self.driver = webdriver.PhantomJS()
