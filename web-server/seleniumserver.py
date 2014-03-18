@@ -24,6 +24,7 @@ class Selenium_Instance:
 				element = form.find_element_by_name(key)
 
 				if element.is_displayed():
+					element.clear()
 					element.send_keys(data[key])
 		form.submit()
 		return
