@@ -3,6 +3,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+import atexit
 
 import base64
 import socket
@@ -48,7 +49,7 @@ def source_request(url):
 	#load
 	serve.get_page(decoded_url)
 	src = serve.get_page_source()
-	app.logger.debug(src)
+	# app.logger.debug(src)
 	sheets = serve.get_css_sheets()
 	# serve.shutdown()
 	return render_template("raw.html", src=src, sheets=sheets)
@@ -73,6 +74,7 @@ def form_get():
 	form_data = request.args.to_dict()
 	app.logger.debug("form data: " + str(form_data))
 	serve.populate_form(form_data)
+	
 	return ""
 
 @app.route('/src_reload')
@@ -90,6 +92,16 @@ def add_header(response):
 	response.headers['Cache-Control'] = 'public, max-age=0'
 	return response
 
+#kill phantom browser on shutdown
+def cleanup():
+	global serve
+	if serve is None:
+		return
+	else:
+		serve.shutdown()
+
+
 if __name__ == '__main__':
+	atexit.register(cleanup) # cleanup for a clean exit
 	app.debug = True #True allows for arbitrary code execution!
 	app.run(port=8887)
