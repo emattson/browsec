@@ -106,7 +106,7 @@ class Selenium_Instance:
 		for link in body("a"):
 			if link.has_attr('href'):
 				proc_href = self.fix_href(link['href'])
-				link['href'] = base64.urlsafe_b64encode(proc_href)
+				link['href'] = "/src/" + base64.urlsafe_b64encode(proc_href)
 		#handle images
 		for image in body("img"):
 			src = image['src']
