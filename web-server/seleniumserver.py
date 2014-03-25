@@ -88,6 +88,11 @@ class Selenium_Instance:
 		self.app.logger.debug("\thref: %s", link)
 		return link
 
+
+	#					#
+	#  HELPER FINDERS  	#
+	#					#
+
 	#helper finder for onload
 	def handle_onload(self, tag):
 		if tag.has_attr("onload"):
@@ -97,8 +102,13 @@ class Selenium_Instance:
 
 	#helper finder for onclick tags
 	def handle_onclick(self, tag):
-		pass
+		if tag.has_attr("onclick"):
+			tag["onclick"]='console.log("onclick caught");'
+			return True
+		return False
 
+
+	#get page source and strip of naughtiness 
 	def get_page_source(self):
 		# source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;")
 		source = self.driver.page_source
@@ -119,7 +129,7 @@ class Selenium_Instance:
 		body.find_all(self.handle_onload)
 
 		#find all onclick objects and handle
-
+		body.find_all(self.handle_onclick)
 
 
 		#handle links
