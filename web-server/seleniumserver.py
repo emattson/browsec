@@ -89,14 +89,14 @@ class Selenium_Instance:
 		return link
 
 	#helper finder for onload
-	def handle_onload(tag):
+	def handle_onload(self, tag):
 		if tag.has_attr("onload"):
 			tag["onload"]="console.log('onload caught and managed');" #put our own code here if we want to
 			return True
 		return False
 
 	#helper finder for onclick tags
-	def handle_onclick(tag):
+	def handle_onclick(self, tag):
 		pass
 
 	def get_page_source(self):
@@ -116,7 +116,7 @@ class Selenium_Instance:
 			script.decompose()
 
 		#find all onload objects and remove scripting
-		body.find_all(handle_onload)
+		body.find_all(self.handle_onload)
 
 		#find all onclick objects and handle
 
