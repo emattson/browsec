@@ -88,6 +88,17 @@ class Selenium_Instance:
 		self.app.logger.debug("\thref: %s", link)
 		return link
 
+	#helper finder for onload
+	def handle_onload(tag):
+		if tag.has_attr("onload"):
+			tag["onload"]="console.log('onload caught and managed');" #put our own code here if we want to
+			return True
+		return False
+
+	#helper finder for onclick tags
+	def handle_onclick(tag):
+		pass
+
 	def get_page_source(self):
 		# source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;")
 		source = self.driver.page_source
@@ -99,9 +110,18 @@ class Selenium_Instance:
 		# self.app.logger.debug("IMPORTANT %s", source)
 		soup = BeautifulSoup(source)
 		body = soup.body.extract()
+		
 		# first remove any remaining scripts
 		for script in body("script"):
 			script.decompose()
+
+		#find all onload objects and remove scripting
+		body.find_all(handle_onload)
+
+		#find all onclick objects and handle
+
+
+
 		#handle links
 		for link in body("a"):
 			if link.has_attr('href'):
