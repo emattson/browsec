@@ -114,6 +114,22 @@ class Selenium_Instance:
 		return False
 
 
+
+	#handle images with viewport
+	def handle_images(self, body):
+		imgs_driver = self.driver.find_elements_by_xpath("//img")
+		imgs_bs = body("img")
+		souper = BeautifulSoup()
+		for i in range(len(imgs_bs)):
+			wrapper = souper.new_tag("div")
+			wrapper["class"] = ["viewport"]
+			imgs_bs[i].wrap(wrapper) # wrap in viewport
+			imgs_bs[i]["class"] = ["clipped"]
+			imgs_bs[i]["src"] = "/static/screenshot.png"
+			imgs_bs[i]["onload"] = "setViewport(this," + str(imgs_driver[i].location['x']) + ", " + str(imgs_driver[i].location['y']) + ", " +  str(imgs_driver[i].size['width']) + ", " +  str(imgs_driver[i].size['height']) + ");"
+
+		return body
+
 	#get page source and strip of naughtiness 
 	def get_page_source(self):
 		# source = self.driver.execute_script("return document.getElementsByTagName('body')[0].innerHTML;")
@@ -144,11 +160,13 @@ class Selenium_Instance:
 				proc_href = self.fix_href(link['href'])
 				link['href'] = "/src/" + base64.urlsafe_b64encode(proc_href)
 		#handle images
-		for image in body("img"):
-			src = image['src']
-			if not(src.split('/')[0] == "http:" or src.split('/')[0] == "https:" or src[:2] == '//'):
-				#relational image
-				image['src'] = "http://" + self.driver.execute_script("return window.document.domain") + src
+		body = self.handle_images(body)
+		self.take_screenshot()
+		# for image in body("img"):
+		# 	src = image['src']
+		# 	if not(src.split('/')[0] == "http:" or src.split('/')[0] == "https:" or src[:2] == '//'):
+		# 		#relational image
+		# 		image['src'] = "http://" + self.driver.execute_script("return window.document.domain") + src
 		#handle style elements
 		for style in soup("style"):
 			body.insert(0, style)

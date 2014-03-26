@@ -3,12 +3,26 @@
 	<title>Phantomsite</title>
 	<link rel="shortcut-icon" href="{{url_for('static', filename='favicon.ico')}}">
 	<script src="{{url_for('static', filename='jquery-2.1.0.min.js')}}"></script>
+	<script type="text/javascript" src="{{url_for('static', filename='src-scripts.js')}}"></script>
 	<script type=text/javascript>
 		var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	</script>
 	{% for sheet in sheets %}
 		<link rel="stylesheet" href="{{sheet}}">
 	{% endfor %}
+
+	<style type="text/css">
+        div.viewport {
+            overflow: hidden;
+            position: relative;
+            display: inline-block;
+        }
+
+        img.clipped {
+            display: block;
+            position: absolute;
+        }
+    </style>
 </head>
 <!-- made by selenium -->
 {% block page scoped %}{% endblock %}
