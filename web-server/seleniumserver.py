@@ -94,11 +94,14 @@ class Selenium_Instance:
 	#					#
 
 	#helper finder for onload
-	def handle_onload(self, tag):
-		if tag.has_attr("onload"):
-			tag["onload"]="console.log('onload caught and managed');" #put our own code here if we want to
-			return True
-		return False
+	def handle_form_events(self, tag):
+		events = set(["onload", "onblur", "oncontextmenu", "onchange", "onfocus", "onformchange", "onforminput", "oninput", "oninvalid", "onreset", "onselect", "onsubmit"])
+		attributes = tag.attrs
+		intersect = events.intersection(attributes)
+		for event in intersect:
+			tag[event] = "console.log(event + ' caught and nullified');"
+		return len(intersect) > 0
+
 
 	#helper finder for onclick tags
 	def handle_onclick(self, tag):
@@ -125,8 +128,8 @@ class Selenium_Instance:
 		for script in body("script"):
 			script.decompose()
 
-		#find all onload objects and remove scripting
-		body.find_all(self.handle_onload)
+		#find all form event objects and remove scripting
+		body.find_all(self.handle_form_events)
 
 		#find all onclick objects and handle
 		body.find_all(self.handle_onclick)
