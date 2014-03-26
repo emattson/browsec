@@ -93,11 +93,14 @@ class Selenium_Instance:
 	#  HELPER FINDERS  	#
 	#					#
 
-	#helper finder for onload
-	def handle_form_events(self, tag):
-		events = set(["onload", "onblur", "oncontextmenu", "onchange", "onfocus", "onformchange", "onforminput", "oninput", "oninvalid", "onreset", "onselect", "onsubmit"])
-		attributes = tag.attrs
-		intersect = events.intersection(attributes)
+	#helper finder for form events
+		#note that this might disable some form debugging output for the user
+	def handle_form_media_events(self, tag):
+		form_events = set(["onload", "onblur", "oncontextmenu", "onchange", "onfocus", "onformchange", "onforminput", "oninput", "oninvalid", "onreset", "onselect", "onsubmit"])
+		media_events = set(["onabort", "oncanplay", "oncanplaythrough", "ondurationchange", "onemptied", "onended", "onerror", "onloadeddata", "onloadedmetadata", "onloadstart", "onpause", "onplay", "onplaying", "onprogress", "onratechange", "onreadystatechange", "onseeked", "onseeking", "onstalled", "onsuspend", "ontimeupdate", "onvolumechange", "onwaiting"])
+		events = form_events.union(media_events) #have to disable all of them
+		attributes = tag.attrs # get attributes for tag as dict
+		intersect = events.intersection(attributes) #set intersections O(min(len(attributes), len(events)))
 		for event in intersect:
 			tag[event] = "console.log(event + ' caught and nullified');"
 		return len(intersect) > 0
@@ -129,7 +132,7 @@ class Selenium_Instance:
 			script.decompose()
 
 		#find all form event objects and remove scripting
-		body.find_all(self.handle_form_events)
+		body.find_all(self.handle_form_media_events)
 
 		#find all onclick objects and handle
 		body.find_all(self.handle_onclick)
