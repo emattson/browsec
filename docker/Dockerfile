@@ -6,6 +6,9 @@
 #set the base image to ubuntu
 FROM ubuntu
 
+#update apt
+RUN apt-get update
+
 #get phantomjs and pip
 RUN apt-get -y install phantomjs python-pip
 
