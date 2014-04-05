@@ -6,6 +6,14 @@
 #set the base image to ubuntu
 FROM ubuntu
 
-#run something
-RUN echo "hello docker"
+#get phantomjs and pip
+RUN apt-get -y install phantomjs python-pip
+
+#get selenium 
+RUN pip install selenium 
+
+#get flask
+RUN pip install flask
+
+
 
