@@ -103,5 +103,5 @@ def cleanup():
 
 if __name__ == '__main__':
 	atexit.register(cleanup) # cleanup for a clean exit
-	app.debug = False #True allows for arbitrary code execution!
+	app.debug = True #True allows for arbitrary code execution!
 	app.run(host='0.0.0.0', port=8887)
