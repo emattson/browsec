@@ -83,7 +83,20 @@ def browse_back():
 	global serve
 	app.logger.debug("browser back")
 	serve.back()
-	app.logger.debug(str(url_for('.reload')))
+	return redirect('http://nimbus.seas.gwu.edu:8888/src_reload')
+
+@app.route('/_forward')
+def browse_forward():
+	global serve
+	app.logger.debug("browser forward")
+	serve.forward()
+	return redirect('http://nimbus.seas.gwu.edu:8888/src_reload')
+
+@app.route('/_refresh')
+def browse_refresh():
+	global serve
+	app.logger.debug("browser refresh")
+	serve.refresh()
 	return redirect('http://nimbus.seas.gwu.edu:8888/src_reload')
 
 @app.route('/src_reload')
