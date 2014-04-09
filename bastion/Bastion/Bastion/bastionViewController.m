@@ -55,11 +55,15 @@
 - (IBAction)forwardAction
 {
     NSLog(@"Forward button hit");
+    NSURLRequest *request = [self.com sendAction:@"forward"];
+    [_webView loadRequest:request];
 }
 
 - (IBAction)refreshAction
 {
     NSLog(@"Refresh button hit");
+    NSURLRequest *request = [self.com sendAction:@"refresh"];
+    [_webView loadRequest:request];
 }
 
 - (IBAction)favoritesMenuAction{
