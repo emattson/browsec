@@ -15,7 +15,7 @@
 //@"http://54.201.101.85:8080/"
 
 -(NSURLRequest *) sendWebRequest: (NSString *) address {
-    NSLog(@"made it this far");
+//    NSLog(@"made it this far");
     NSLog(@"Address requested is: %@", address);
     NSData *data = [address dataUsingEncoding:NSASCIIStringEncoding];
     NSString *encodedURL = [data base64EncodedString];
@@ -39,8 +39,15 @@
     return nil;
 }
 
--(void) sendAction:(NSObject *)userAction {
+-(NSURLRequest *) sendAction:(NSString *)userAction {
     //send user action back to
+    NSLog(@"action is %@", userAction);
+    NSString *fullURL = @"http://nimbus.seas.gwu.edu:8888/_";
+    fullURL = [fullURL stringByAppendingString:userAction];
+    NSLog(@"full url is %@", fullURL);
+    NSURL *url = [NSURL URLWithString:fullURL];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    return req;
 }
 
 @end
