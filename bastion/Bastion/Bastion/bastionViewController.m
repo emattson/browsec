@@ -48,6 +48,8 @@
 - (IBAction)backAction
 {
     NSLog(@"Back button hit");
+    NSURLRequest *request = [self.com sendAction:@"back"];
+    [_webView loadRequest:request];
 }
 
 - (IBAction)forwardAction
