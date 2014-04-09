@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "creating new docker image called bastion_latest"
+sudo docker build -t bastion_latest .
+echo "stop and remove current image"
+sudo docker stop b_latest
+sudo docker rm b_latest
+echo "re-run newly built image"
+sudo docker run -p 127.0.0.1:8887:8887 --name b_latest -d bastion_latest
+echo " done! "
+sudo docker logs -f b_latest
