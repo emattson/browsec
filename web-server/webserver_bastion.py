@@ -77,6 +77,13 @@ def form_get():
 	
 	return ""
 
+@app.route('/_back')
+def browse_back():
+	global serve
+	app.logger.debug("browser back")
+	serve.back()
+	return redirect(url_for("src_reload"))
+
 @app.route('/src_reload')
 def reload():
 	global serve
