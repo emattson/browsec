@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Bastion View Controller-->
@@ -41,10 +41,26 @@
                                 <rect key="frame" x="0.0" y="526" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Back" id="t9k-qD-W43"/>
-                                    <barButtonItem title="Forward" id="edO-TJ-ffQ"/>
-                                    <barButtonItem title="Refresh" id="XVW-5Z-bPP"/>
-                                    <barButtonItem title="Favorites" id="uds-kZ-PSR"/>
+                                    <barButtonItem title="Back" id="t9k-qD-W43">
+                                        <connections>
+                                            <action selector="backAction" destination="vXZ-lx-hvc" id="5G7-1y-s18"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Forward" id="edO-TJ-ffQ">
+                                        <connections>
+                                            <action selector="forwardAction" destination="vXZ-lx-hvc" id="qEH-gj-clo"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Refresh" id="XVW-5Z-bPP">
+                                        <connections>
+                                            <action selector="refreshAction" destination="vXZ-lx-hvc" id="TPe-GH-V47"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Favorites" id="uds-kZ-PSR">
+                                        <connections>
+                                            <action selector="favoritesMenuAction" destination="vXZ-lx-hvc" id="w0q-UW-N18"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>

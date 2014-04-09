@@ -22,6 +22,10 @@
 @synthesize com = _com;
 @synthesize uact = _uact;
 
+//@synthesize backButton = _backButton;
+//@synthesize forwardButton = _forwardButton;
+//@synthesize refreshButton = _refreshButton;
+
 - (Communicator *)com
 {
     if (!_com) _com = [[Communicator alloc] init];
@@ -41,6 +45,26 @@
     [_webView loadRequest:request];
 }
 
+- (IBAction)backAction
+{
+    NSLog(@"Back button hit");
+}
+
+- (IBAction)forwardAction
+{
+    NSLog(@"Forward button hit");
+}
+
+- (IBAction)refreshAction
+{
+    NSLog(@"Refresh button hit");
+}
+
+- (IBAction)favoritesMenuAction{
+    NSLog(@"Favorites button hit");
+}
+
+
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -56,7 +80,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     NSString *errorString = [error localizedDescription];
-    [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error (%d)", error.code] message:errorString delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error (%ld)", (long)error.code] message:errorString delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     
 }
 
