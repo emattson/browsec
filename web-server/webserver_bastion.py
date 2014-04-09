@@ -3,7 +3,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
-# from flask import jsonify
+from flask import url_for
 import atexit
 
 import base64
@@ -83,7 +83,8 @@ def browse_back():
 	global serve
 	app.logger.debug("browser back")
 	serve.back()
-	return redirect(url_for("src_reload"))
+	app.logger.debug(str(url_for('.reload')))
+	return redirect('http://nimbus.seas.gwu.edu:8888/src_reload')
 
 @app.route('/src_reload')
 def reload():
