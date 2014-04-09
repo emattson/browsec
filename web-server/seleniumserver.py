@@ -14,6 +14,24 @@ class Selenium_Instance:
 		self.app_location = "/get_div/"
 		return
 
+	def back(self):
+		if self.driver is None:
+			self.driver = webdriver.PhantomJS()
+		self.driver.back()
+		return
+	
+	def forward(self):
+		if self.driver is None:
+			self.driver = webdriver.PhantomJS()
+		self.driver.forward()
+		return
+
+	def refresh(self):
+		if self.driver is None:
+			self.driver = webdriver.PhantomJS()
+		self.driver.refresh()
+		return
+
 	def populate_form(self, data):
 		self.app.logger.debug(data['bast_name'])
 		form = self.driver.find_element_by_name(data['bast_name']);
